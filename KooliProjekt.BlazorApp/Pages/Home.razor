@@ -1,0 +1,79 @@
+@page "/"
+@using KooliProjekt.BlazorApp.Api
+@inject IApiClient ApiClient
+@inject NavigationManager Navigation
+
+<h1>Media items</h1>
+
+@if (!string.IsNullOrWhiteSpace(_error))
+{
+    <p class="validation-message">@_error</p>
+}
+
+<button @onclick="NewItem">New</button>
+
+@if (_items == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table>
+        <thead><tr><th>Title</th><th>Type</th><th>Price</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var item in _items)
+        {
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.MediaType</td>
+                <td>@item.Price</td>
+                <td>
+                    <button @onclick="() => EditItem(item.Id)">Edit</button>
+                    <button @onclick="() => Delete(item.Id)">Delete</button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IList<MediaItem>? _items;
+    private string? _error;
+
+    protected override async Task OnInitializedAsync() => await Load();
+
+    private async Task Load()
+    {
+        var result = await ApiClient.List();
+        if (!result.IsSuccess)
+        {
+            _error = result.Error;
+            return;
+        }
+
+        _items = result.Value;
+    }
+
+    private void NewItem()
+    {
+        Navigation.NavigateTo("/edit");
+    }
+
+    private void EditItem(int id)
+    {
+        Navigation.NavigateTo($"/edit/{id}");
+    }
+
+    private async Task Delete(int id)
+    {
+        var result = await ApiClient.Delete(id);
+        if (!result.IsSuccess)
+        {
+            _error = result.Error;
+            return;
+        }
+
+        await Load();
+    }
+}

@@ -1,0 +1,11 @@
+@model PeopleIndexModel
+<h1>People</h1>
+<p><a asp-action="Create">Create new</a></p>
+<form method="get"><input asp-for="Search.Keyword" name="Keyword" placeholder="Search" /><button>Search</button></form>
+<table><thead><tr><th>FullName</th><th>Email</th><th>PhoneNumber</th><th></th></tr></thead><tbody>
+@foreach (var item in Model.Data.Results)
+{
+<tr><td>@item.FullName</td><td>@item.Email</td><td>@item.PhoneNumber</td><td><a asp-action="Edit" asp-route-id="@item.Id">Edit</a> | <a asp-action="Details" asp-route-id="@item.Id">Details</a> | <a asp-action="Delete" asp-route-id="@item.Id">Delete</a></td></tr>
+}
+</tbody></table>
+@(await Component.InvokeAsync<PagerViewComponent>(Model.Data))

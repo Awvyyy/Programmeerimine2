@@ -1,0 +1,14 @@
+@{ ViewData["Title"]="Edit loan"; ViewData["Action"]="Edit"; }
+
+@model Loan
+<h1>@ViewData["Title"]</h1>
+<form asp-action='@ViewData["Action"]'>
+<input type="hidden" asp-for="Id" />
+<div><label asp-for="MediaItemId"></label><select asp-for="MediaItemId" asp-items="ViewBag.MediaItemId"></select></div>
+<div><label asp-for="BorrowerId"></label><select asp-for="BorrowerId" asp-items="ViewBag.BorrowerId"></select></div>
+<div><label asp-for="BorrowedAt"></label><input asp-for="BorrowedAt" /></div>
+<div><label asp-for="DueAt"></label><input asp-for="DueAt" /></div>
+<div><label asp-for="ReturnedAt"></label><input asp-for="ReturnedAt" /></div>
+<div><label asp-for="Notes"></label><input asp-for="Notes" /></div>
+<button>Save</button> <a asp-action="Index">Back</a>
+</form>

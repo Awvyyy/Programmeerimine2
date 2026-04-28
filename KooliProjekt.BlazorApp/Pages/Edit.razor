@@ -1,0 +1,113 @@
+@page "/edit"
+@page "/edit/{Id:int}"
+@using KooliProjekt.BlazorApp.Api
+@inject IApiClient ApiClient
+@inject NavigationManager Navigation
+
+<h1>Edit media item</h1>
+
+@if (!string.IsNullOrWhiteSpace(_error))
+{
+    <p class="validation-message">@_error</p>
+}
+
+<EditForm EditContext="@_editContext" OnValidSubmit="@Save">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <label>Title</label>
+    <InputText @bind-Value="_item.Title" />
+    <ValidationMessage For="() => _item.Title" />
+
+    <label>Creator</label>
+    <InputText @bind-Value="_item.AuthorOrCreator" />
+
+    <label>Media type</label>
+    <InputSelect @bind-Value="_item.MediaType">
+        @foreach (var value in Enum.GetValues<MediaType>())
+        {
+            <option value="@value">@value</option>
+        }
+    </InputSelect>
+
+    <label>Category</label>
+    <InputSelect @bind-Value="_item.CategoryId">
+        <option value="0">Choose category</option>
+        @foreach (var category in _categories)
+        {
+            <option value="@category.Id">@category.Name</option>
+        }
+    </InputSelect>
+    <ValidationMessage For="() => _item.CategoryId" />
+
+    <label>Price</label>
+    <InputNumber @bind-Value="_item.Price" />
+
+    <label><InputCheckbox @bind-Value="_item.IsAvailable" /> Available</label>
+
+    <button type="submit">Save</button>
+    <button type="button" @onclick="GoBack">Back</button>
+</EditForm>
+
+@code {
+    [Parameter] public int? Id { get; set; }
+
+    private MediaItem _item = new();
+    private List<Category> _categories = new();
+    private EditContext _editContext = default!;
+    private ValidationMessageStore _messageStore = default!;
+    private string? _error;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _editContext = new EditContext(_item);
+        _messageStore = new ValidationMessageStore(_editContext);
+
+        var categories = await ApiClient.Categories();
+        if (categories.IsSuccess && categories.Value != null)
+        {
+            _categories = categories.Value.ToList();
+        }
+
+        if (Id.HasValue)
+        {
+            var result = await ApiClient.Get(Id.Value);
+            if (result.IsSuccess && result.Value != null)
+            {
+                _item = result.Value;
+                _editContext = new EditContext(_item);
+                _messageStore = new ValidationMessageStore(_editContext);
+            }
+            else
+            {
+                _error = result.Error;
+            }
+        }
+    }
+
+    private async Task Save()
+    {
+        _messageStore.Clear();
+        var result = await ApiClient.Save(_item);
+
+        if (result.IsSuccess)
+        {
+            Navigation.NavigateTo("/");
+            return;
+        }
+
+        _error = result.Error;
+
+        foreach (var error in result.Errors)
+        {
+            _messageStore.Add(new FieldIdentifier(_item, error.Key), error.Value);
+        }
+
+        _editContext.NotifyValidationStateChanged();
+    }
+
+    private void GoBack()
+    {
+        Navigation.NavigateTo("/");
+    }
+}

@@ -1,0 +1,32 @@
+@model MediaItemsIndexModel
+@{
+    ViewData["Title"] = "Media items";
+}
+<h1>Media items</h1>
+<p><a asp-action="Create">Create new</a></p>
+
+<form method="get">
+    <input asp-for="Search.Keyword" name="Keyword" placeholder="Search title or creator" />
+    <select asp-for="Search.CategoryId" name="CategoryId" asp-items="ViewBag.Categories"><option value="">All categories</option></select>
+    <select asp-for="Search.MediaType" name="MediaType" asp-items="Html.GetEnumSelectList<MediaType>()"><option value="">All types</option></select>
+    <label><input asp-for="Search.OnlyAvailable" name="OnlyAvailable" /> Only available</label>
+    <button type="submit">Search</button>
+</form>
+
+<table>
+<thead><tr><th>Title</th><th>Creator</th><th>Type</th><th>Category</th><th>Available</th><th></th></tr></thead>
+<tbody>
+@foreach (var item in Model.Data.Results)
+{
+    <tr>
+        <td>@item.Title</td>
+        <td>@item.AuthorOrCreator</td>
+        <td>@item.MediaType</td>
+        <td>@item.Category?.Name</td>
+        <td>@item.IsAvailable</td>
+        <td><a asp-action="Edit" asp-route-id="@item.Id">Edit</a> | <a asp-action="Details" asp-route-id="@item.Id">Details</a> | <a asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
+    </tr>
+}
+</tbody>
+</table>
+@(await Component.InvokeAsync<PagerViewComponent>(Model.Data))

@@ -1,0 +1,11 @@
+@model ReviewsIndexModel
+<h1>Reviews</h1>
+<p><a asp-action="Create">Create new</a></p>
+<form method="get"><input asp-for="Search.Keyword" name="Keyword" placeholder="Search" /><input asp-for="Search.Rating" name="Rating" placeholder="Rating" /><button>Search</button></form>
+<table><thead><tr><th>Media item</th><th>Reviewer</th><th>Rating</th><th>Comment</th><th></th></tr></thead><tbody>
+@foreach (var item in Model.Data.Results)
+{
+<tr><td>@item.MediaItem?.Title</td><td>@item.Reviewer?.FullName</td><td>@item.Rating</td><td>@item.Comment</td><td><a asp-action="Edit" asp-route-id="@item.Id">Edit</a> | <a asp-action="Details" asp-route-id="@item.Id">Details</a> | <a asp-action="Delete" asp-route-id="@item.Id">Delete</a></td></tr>
+}
+</tbody></table>
+@(await Component.InvokeAsync<PagerViewComponent>(Model.Data))

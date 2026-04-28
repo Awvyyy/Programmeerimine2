@@ -1,0 +1,11 @@
+@{ ViewData["Title"]="Edit category"; ViewData["Action"]="Edit"; }
+
+@model Category
+<h1>@ViewData["Title"]</h1>
+<form asp-action='@ViewData["Action"]'>
+<input type="hidden" asp-for="Id" />
+<div asp-validation-summary="ModelOnly"></div>
+<div><label asp-for="Name"></label><input asp-for="Name" /><span asp-validation-for="Name"></span></div>
+<div><label asp-for="Description"></label><input asp-for="Description" /><span asp-validation-for="Description"></span></div>
+<button type="submit">Save</button> <a asp-action="Index">Back</a>
+</form>

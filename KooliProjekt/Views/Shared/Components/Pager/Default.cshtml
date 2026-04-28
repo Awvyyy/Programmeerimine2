@@ -1,0 +1,11 @@
+@model PagedResultBase
+
+@if (Model.PageCount > 1)
+{
+    <div class="pager">
+        @for (var pageNumber = 1; pageNumber <= Model.PageCount; pageNumber++)
+        {
+            <a class="@(pageNumber == Model.CurrentPage ? "active" : "")" href="?page=@pageNumber">@pageNumber</a>
+        }
+    </div>
+}

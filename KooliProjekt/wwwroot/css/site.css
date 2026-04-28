@@ -1,0 +1,11 @@
+body { font-family: Arial, sans-serif; margin: 0; }
+.topnav { background: #f2f2f2; padding: 12px; }
+.topnav a, .login { margin-right: 12px; }
+.container { padding: 20px; max-width: 1100px; }
+table { border-collapse: collapse; width: 100%; margin-top: 12px; }
+th, td { border: 1px solid #ddd; padding: 8px; }
+input, select, textarea { padding: 6px; margin: 4px; min-width: 220px; }
+button, .button { padding: 6px 10px; margin: 4px; }
+.pager a { padding: 6px 10px; border: 1px solid #ddd; margin-right: 4px; }
+.pager .active { font-weight: bold; background: #eee; }
+.validation-summary-errors { color: darkred; }

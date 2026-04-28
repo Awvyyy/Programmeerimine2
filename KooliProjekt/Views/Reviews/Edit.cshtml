@@ -1,0 +1,12 @@
+@{ ViewData["Title"]="Edit review"; ViewData["Action"]="Edit"; }
+
+@model Review
+<h1>@ViewData["Title"]</h1>
+<form asp-action='@ViewData["Action"]'>
+<input type="hidden" asp-for="Id" />
+<div><label asp-for="MediaItemId"></label><select asp-for="MediaItemId" asp-items="ViewBag.MediaItemId"></select></div>
+<div><label asp-for="ReviewerId"></label><select asp-for="ReviewerId" asp-items="ViewBag.ReviewerId"></select></div>
+<div><label asp-for="Rating"></label><input asp-for="Rating" /></div>
+<div><label asp-for="Comment"></label><textarea asp-for="Comment"></textarea></div>
+<button>Save</button> <a asp-action="Index">Back</a>
+</form>

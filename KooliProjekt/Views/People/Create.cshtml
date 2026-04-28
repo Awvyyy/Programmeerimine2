@@ -1,0 +1,12 @@
+@{ ViewData["Title"]="Create person"; ViewData["Action"]="Create"; }
+
+@model Person
+<h1>@ViewData["Title"]</h1>
+<form asp-action='@ViewData["Action"]'>
+<input type="hidden" asp-for="Id" />
+<div asp-validation-summary="ModelOnly"></div>
+<div><label asp-for="FullName"></label><input asp-for="FullName" /><span asp-validation-for="FullName"></span></div>
+<div><label asp-for="Email"></label><input asp-for="Email" /><span asp-validation-for="Email"></span></div>
+<div><label asp-for="PhoneNumber"></label><input asp-for="PhoneNumber" /><span asp-validation-for="PhoneNumber"></span></div>
+<button type="submit">Save</button> <a asp-action="Index">Back</a>
+</form>

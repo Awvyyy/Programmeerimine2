@@ -1,0 +1,4 @@
+@model Person
+<h1>Person details</h1><dl><dt>FullName</dt><dd>@Model.FullName</dd>
+<dt>Email</dt><dd>@Model.Email</dd>
+<dt>PhoneNumber</dt><dd>@Model.PhoneNumber</dd></dl><a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> | <a asp-action="Index">Back</a>

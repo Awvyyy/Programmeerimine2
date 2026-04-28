@@ -1,0 +1,4 @@
+@model MediaItem
+<h1>Delete media item</h1>
+<p>Delete @Model.Title?</p>
+<form asp-action="Delete"><input type="hidden" asp-for="Id" /><button type="submit">Delete</button> <a asp-action="Index">Back</a></form>

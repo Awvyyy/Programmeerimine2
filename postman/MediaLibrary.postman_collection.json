@@ -1,0 +1,69 @@
+{
+  "info": {
+    "name": "Media Library API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://localhost:7136/api"
+    }
+  ],
+  "item": [
+    {
+      "name": "GET all",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/MediaItemsApi"
+      }
+    },
+    {
+      "name": "GET by id",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/MediaItemsApi/1"
+      }
+    },
+    {
+      "name": "POST create",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\":\"Postman item\",\"authorOrCreator\":\"Student\",\"mediaType\":1,\"price\":10,\"isAvailable\":true,\"categoryId\":1}"
+        },
+        "url": "{{baseUrl}}/MediaItemsApi"
+      }
+    },
+    {
+      "name": "PUT update",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"id\":1,\"title\":\"Updated item\",\"authorOrCreator\":\"Student\",\"mediaType\":1,\"price\":12,\"isAvailable\":true,\"categoryId\":1}"
+        },
+        "url": "{{baseUrl}}/MediaItemsApi/1"
+      }
+    },
+    {
+      "name": "DELETE",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/MediaItemsApi/1"
+      }
+    }
+  ]
+}

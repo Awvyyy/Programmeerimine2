@@ -1,0 +1,10 @@
+@model MediaItem
+<h1>Media item details</h1>
+<dl>
+    <dt>Title</dt><dd>@Model.Title</dd>
+    <dt>Creator</dt><dd>@Model.AuthorOrCreator</dd>
+    <dt>Type</dt><dd>@Model.MediaType</dd>
+    <dt>Category</dt><dd>@Model.Category?.Name</dd>
+    <dt>Price</dt><dd>@Model.Price</dd>
+</dl>
+<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> | <a asp-action="Index">Back</a>

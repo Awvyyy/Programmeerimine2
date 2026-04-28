@@ -1,0 +1,17 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Media Library">
+    <mxGraphModel><root>
+      <mxCell id="0"/><mxCell id="1" parent="0"/>
+      <mxCell id="cat" value="Category&#xa;Id:int&#xa;Name:string&#xa;Description:string" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="80" width="220" height="120" as="geometry"/></mxCell>
+      <mxCell id="media" value="MediaItem&#xa;Id:int&#xa;Title:string&#xa;AuthorOrCreator:string&#xa;MediaType:enum&#xa;CategoryId:int" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="360" y="60" width="260" height="160" as="geometry"/></mxCell>
+      <mxCell id="person" value="Person&#xa;Id:int&#xa;FullName:string&#xa;Email:string" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="720" y="80" width="220" height="120" as="geometry"/></mxCell>
+      <mxCell id="loan" value="Loan&#xa;Id:int&#xa;MediaItemId:int&#xa;BorrowerId:int&#xa;BorrowedAt:DateTime" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="360" y="320" width="260" height="140" as="geometry"/></mxCell>
+      <mxCell id="review" value="Review&#xa;Id:int&#xa;MediaItemId:int&#xa;ReviewerId:int&#xa;Rating:int" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="720" y="320" width="220" height="140" as="geometry"/></mxCell>
+      <mxCell id="e1" style="endArrow=block;html=1;" edge="1" parent="1" source="media" target="cat"><mxGeometry relative="1" as="geometry"/></mxCell>
+      <mxCell id="e2" style="endArrow=block;html=1;" edge="1" parent="1" source="loan" target="media"><mxGeometry relative="1" as="geometry"/></mxCell>
+      <mxCell id="e3" style="endArrow=block;html=1;" edge="1" parent="1" source="loan" target="person"><mxGeometry relative="1" as="geometry"/></mxCell>
+      <mxCell id="e4" style="endArrow=block;html=1;" edge="1" parent="1" source="review" target="media"><mxGeometry relative="1" as="geometry"/></mxCell>
+      <mxCell id="e5" style="endArrow=block;html=1;" edge="1" parent="1" source="review" target="person"><mxGeometry relative="1" as="geometry"/></mxCell>
+    </root></mxGraphModel>
+  </diagram>
+</mxfile>
